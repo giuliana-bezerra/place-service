@@ -28,7 +28,8 @@ O projeto foi elaborado [nesse vídeo]().
 - Uso de DTOs para a API
 - Injeção de Dependências
 - Geração automática do Swagger com a OpenAPI 3
-- Geração de slugs automática com o Slugify.
+- Geração de slugs automática com o Slugify
+- Auditoria sobre criação e atualização da entidade
 
 ## Como Executar
 
