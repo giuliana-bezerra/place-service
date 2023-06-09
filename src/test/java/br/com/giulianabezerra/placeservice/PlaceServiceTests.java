@@ -13,9 +13,9 @@ import br.com.giulianabezerra.placeservice.domain.PlaceRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Import(TestConfig.class)
-public class PlaceTests {
+public class PlaceServiceTests {
   public static final Place CENTRAL_PERK = new Place(
-      1L, "Central Perk", "central-perk", "NY", null, null);
+      1L, "Central Perk", "central-perk", "NY", "NY", null, null);
 
   @Autowired
   WebTestClient webTestClient;
@@ -26,6 +26,7 @@ public class PlaceTests {
   @Test
   public void testCreatePlaceSuccess() {
     final String name = "Valid Name";
+    final String city = "Valid City";
     final String state = "Valid State";
     final String slug = "valid-name";
 
@@ -33,11 +34,12 @@ public class PlaceTests {
         .post()
         .uri("/places")
         .bodyValue(
-            new PlaceRequest(name, state))
+            new PlaceRequest(name, city, state))
         .exchange()
         .expectStatus().isCreated()
         .expectBody()
         .jsonPath("name").isEqualTo(name)
+        .jsonPath("city").isEqualTo(city)
         .jsonPath("state").isEqualTo(state)
         .jsonPath("slug").isEqualTo(slug)
         .jsonPath("createdAt").isNotEmpty()
@@ -48,12 +50,13 @@ public class PlaceTests {
   public void testCreatePlaceFailure() {
     final String name = "";
     final String state = "";
+    final String city = "";
 
     webTestClient
         .post()
         .uri("/places")
         .bodyValue(
-            new PlaceRequest(name, state))
+            new PlaceRequest(name, city, state))
         .exchange()
         .expectStatus().isBadRequest();
   }
@@ -61,19 +64,21 @@ public class PlaceTests {
   @Test
   public void testEditPlaceSuccess() {
     final String newName = "New Name";
+    final String newCity = "New City";
     final String newState = "New State";
     final String newSlug = "new-name";
 
-    // Updates both name and state.
+    // Updates name, city and state.
     webTestClient
         .patch()
         .uri("/places/1")
         .bodyValue(
-            new PlaceRequest(newName, newState))
+            new PlaceRequest(newName, newCity, newState))
         .exchange()
         .expectStatus().isOk()
         .expectBody()
         .jsonPath("name").isEqualTo(newName)
+        .jsonPath("city").isEqualTo(newCity)
         .jsonPath("state").isEqualTo(newState)
         .jsonPath("slug").isEqualTo(newSlug)
         .jsonPath("createdAt").isNotEmpty()
@@ -84,11 +89,28 @@ public class PlaceTests {
         .patch()
         .uri("/places/1")
         .bodyValue(
-            new PlaceRequest(CENTRAL_PERK.name(), null))
+            new PlaceRequest(CENTRAL_PERK.name(), null, null))
         .exchange()
         .expectStatus().isOk()
         .expectBody()
         .jsonPath("name").isEqualTo(CENTRAL_PERK.name())
+        .jsonPath("city").isEqualTo(newCity)
+        .jsonPath("state").isEqualTo(newState)
+        .jsonPath("slug").isEqualTo(CENTRAL_PERK.slug())
+        .jsonPath("createdAt").isNotEmpty()
+        .jsonPath("updatedAt").isNotEmpty();
+
+    // Updates only city
+    webTestClient
+        .patch()
+        .uri("/places/1")
+        .bodyValue(
+            new PlaceRequest(null, CENTRAL_PERK.city(), null))
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody()
+        .jsonPath("name").isEqualTo(CENTRAL_PERK.name())
+        .jsonPath("city").isEqualTo(CENTRAL_PERK.city())
         .jsonPath("state").isEqualTo(newState)
         .jsonPath("slug").isEqualTo(CENTRAL_PERK.slug())
         .jsonPath("createdAt").isNotEmpty()
@@ -99,11 +121,12 @@ public class PlaceTests {
         .patch()
         .uri("/places/1")
         .bodyValue(
-            new PlaceRequest(null, CENTRAL_PERK.state()))
+            new PlaceRequest(null, null, CENTRAL_PERK.state()))
         .exchange()
         .expectStatus().isOk()
         .expectBody()
         .jsonPath("name").isEqualTo(CENTRAL_PERK.name())
+        .jsonPath("city").isEqualTo(CENTRAL_PERK.city())
         .jsonPath("state").isEqualTo(CENTRAL_PERK.state())
         .jsonPath("slug").isEqualTo(CENTRAL_PERK.slug())
         .jsonPath("createdAt").isNotEmpty()

@@ -22,7 +22,7 @@ public class PlaceService {
   public Mono<Place> create(PlaceRequest placeRequest) {
     var place = new Place(
         null, placeRequest.name(), slg.slugify(placeRequest.name()),
-        placeRequest.state(), null, null);
+        placeRequest.city(), placeRequest.state(), null, null);
     return placeRepository.save(place);
   }
 
@@ -38,7 +38,7 @@ public class PlaceService {
   }
 
   public Flux<Place> list(String name) {
-    var place = new Place(null, name, null, null, null, null);
+    var place = new Place(null, name, null, null, null, null, null);
     Example<Place> query = QueryBuilder.makeQuery(place);
     return placeRepository.findAll(query, Sort.by("name").ascending());
   }

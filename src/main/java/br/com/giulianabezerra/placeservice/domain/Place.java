@@ -9,11 +9,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 import jakarta.validation.constraints.NotBlank;
 
 public record Place(
-        @Id Long id, @NotBlank String name, String slug, @NotBlank String state,
+        @Id Long id, @NotBlank String name, String slug,
+        @NotBlank String city,
+        @NotBlank String state,
         @CreatedDate LocalDateTime createdAt,
         @LastModifiedDate LocalDateTime updatedAt) {
 
     public Place withSlug(String slug) {
-        return new Place(id, name, slug, state, createdAt, updatedAt);
+        return new Place(id, name, slug, city, state, createdAt, updatedAt);
     }
 }
