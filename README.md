@@ -17,6 +17,7 @@ O projeto foi elaborado [nesse vídeo]().
 - [Spring Webflux](https://docs.spring.io/spring-framework/reference/web/webflux.html)
 - [Spring Data + R2DBC](https://docs.spring.io/spring-framework/reference/data-access/r2dbc.html)
 - [SpringDoc OpenAPI 3](https://springdoc.org/v2/#spring-webflux-support)
+- [Slugify](https://github.com/slugify/slugify)
 
 ## Práticas adotadas
 
@@ -27,6 +28,7 @@ O projeto foi elaborado [nesse vídeo]().
 - Uso de DTOs para a API
 - Injeção de Dependências
 - Geração automática do Swagger com a OpenAPI 3
+- Geração de slugs automática com o Slugify.
 
 ## Como Executar
 
