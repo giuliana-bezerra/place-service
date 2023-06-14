@@ -9,7 +9,7 @@
 
 API para gerenciar lugares (CRUD) que faz parte [desse desafio](https://github.com/RocketBus/quero-ser-clickbus/tree/master/testes/backend-developer) para pessoas desenvolvedoras backend que se candidatam para a ClickBus.
 
-O projeto foi elaborado [nesse vídeo]().
+O projeto foi elaborado [nesse vídeo](https://youtu.be/SsWZ4O9iWuo).
 
 ## Tecnologias
  
@@ -45,7 +45,7 @@ java -jar place-service/target/place-service-0.0.1-SNAPSHOT.jar
 ```
 
 A API poderá ser acessada em [localhost:8080](http://localhost:8080).
-O Swagger poderá ser visualizado em [localhost:8080/swagger-ui.html](localhost:8080/swagger-ui.html)
+O Swagger poderá ser visualizado em [localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ### Usando Docker
 
@@ -64,7 +64,7 @@ docker run --name place-service -p 8080:8080  -d place-service:0.0.1-SNAPSHOT
 ```
 
 A API poderá ser acessada em [localhost:8080](http://localhost:8080).
-O Swagger poderá ser visualizado em [localhost:8080/swagger-ui.html](localhost:8080/swagger-ui.html)
+O Swagger poderá ser visualizado em [localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ## API Endpoints
 
